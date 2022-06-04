@@ -41,11 +41,11 @@ class App extends React.Component {
         })
       })
     }
-    submit(event,id){
+    submit(event,productId){
         event.preventDefault();
-        if(id===0){
+        if(productId === 0){
           axios.post("http://localhost:8080/api/v1/products",{
-            productId:this.state.productId,
+            
             name:this.state.name,
             userId:this.state.userId,
             slug:this.state.slug,
@@ -77,15 +77,15 @@ class App extends React.Component {
         }
     }
 
-    delete(id){
-      axios.delete(`http://localhost:8080/api/v1/products/${id}`)
+    delete(productId){
+      axios.delete(`http://localhost:8080/api/v1/products/${productId}`)
       .then((res) =>{
         this.componentDidMount();
       })
     }
 
-    edit(id){
-      axios.get(`http://localhost:8080/api/v1/products/${id}`)
+    edit(productId){
+      axios.get(`http://localhost:8080/api/v1/products/${productId}`)
       .then((res) =>{
         console.log(res.data);
         this.setState({
@@ -107,7 +107,7 @@ class App extends React.Component {
         <div className="container">
 
 <div class="row">
-    <form class="col s12" onSubmit={(e)=>this.submit(e,this.state.id)}>
+    <form class="col s12" onSubmit={(e)=>this.submit(e,this.state.productId)}>
       <div class="row">
         <div class="input-field col s2">
           <input onChange={(e)=>this.setState({productId:e.target.value})} id="code" value={this.state.productId} type="text" class="validate"/>
@@ -134,7 +134,7 @@ class App extends React.Component {
       </div>
       <div class="row">
         <div class="input-field col s8">
-          <input id="detail" type="text" onChange={(e)=>this.setState({detail:e.target.value})} class="validate"/>
+          <input id="detail" type="text" value={this.state.detail} onChange={(e)=>this.setState({detail:e.target.value})} class="validate"/>
           <label for="detail">Detail</label>
         </div>
         <div class="input-field col s4">
@@ -188,8 +188,8 @@ class App extends React.Component {
               <td>{product.description}</td>
               <td><img src={product.image} style={{width:200}}></img></td>
               <td>
-              <a class="waves-effect waves-light btn-small  ">Edit</a>
-              <a class="waves-effect waves-light btn-small">Delete</a>
+              <a class="waves-effect waves-light btn-small" onClick={(e)=>this.edit(product.productId)}>Edit</a>
+              <a class="waves-effect waves-light btn-small" onClick={(e)=>this.delete(product.productId)}>Delete</a>
               <a class="waves-effect waves-light btn-small">Detail</a>
               </td>
             </tr>  

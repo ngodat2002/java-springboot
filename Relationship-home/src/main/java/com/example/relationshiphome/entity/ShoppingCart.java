@@ -15,17 +15,9 @@ import java.util.Set;
 @Entity
 @Table(name = "shopping_carts")
 public class ShoppingCart {
-    // ship về đâu, cho ai, địa chỉ, note ship khi nào
-    // tổng tiền.
-    // thời gian tạo.
-    // ai tạo.
     @Id
     private String id;
-    private String userId; // ai tạo
-    /** Mặc dù lấy được từ cartItem,
-     * nhưng nên tính toán mỗi khi update cartItem
-     * để lần sau chỉ việc lấy ra.
-     */
+    private String userId;
     private BigDecimal totalPrice;
     private String shipName;
     private String shipAddress;

@@ -37,7 +37,7 @@ public class OrderRepositoryTest {
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
 
-    @Before // setup()
+    @Before
     public void before() throws Exception {
         Product product1 = new Product();
         product1.setId(productId01);
@@ -45,7 +45,6 @@ public class OrderRepositoryTest {
         product1.setDescription("Helo");
         product1.setPrice(new BigDecimal(50));
         product1.setSlug("product-01");
-//        product1.setStatus(ProductSimpleStatus.ACTIVE);
         productRepository.save(product1);
 
         Product product2 = new Product();
@@ -54,7 +53,7 @@ public class OrderRepositoryTest {
         product2.setDescription("Product 02");
         product2.setPrice(new BigDecimal(70));
         product2.setSlug("product-02");
-//        product2.setStatus(ProductSimpleStatus.ACTIVE);
+
         productRepository.save(product2);
     }
 
@@ -68,7 +67,6 @@ public class OrderRepositoryTest {
         order.setTotalPrice(new BigDecimal(0));
 
         Set<OrderDetail> orderDetailSet = new HashSet<>();
-        // tạo prodcut
         Product product01 = productRepository.findById(productId01).get();
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setId(new OrderDetailId(orderId, product01.getId()));
@@ -79,7 +77,6 @@ public class OrderRepositoryTest {
         order.setTotalPrice(product01.getPrice().multiply(new BigDecimal(orderDetail.getQuantity())));
         orderDetailSet.add(orderDetail);
 
-        // tạo prodcut
         Product product02 = productRepository.findById(productId02).get();
         OrderDetail orderDetail2 = new OrderDetail();
         orderDetail2.setId(new OrderDetailId(orderId, product02.getId()));
@@ -108,10 +105,8 @@ public class OrderRepositoryTest {
 
     @Test
     public void realSaveOrder() {
-        // ai là người đặt order.
         String userAccessToken = "";
         String userId = "A001";
-        // thông tin giỏ hàng.
         CartItemDTO cartItemDTO1 = CartItemDTO.builder()
                 .productId(productId01)
                 .quantity(5)
@@ -132,8 +127,6 @@ public class OrderRepositoryTest {
         setItemDTO.add(cartItemDTO2);
         shoppingCartDTO.setItems(setItemDTO);
 
-        // chuyển dto sang ShoppingCart và CartItem.
-        // xử lý ở controller
         boolean hasException = false;
         ShoppingCart shoppingCart = ShoppingCart.builder()
                 .id(UUID.randomUUID().toString())
@@ -161,7 +154,7 @@ public class OrderRepositoryTest {
                     .shoppingCart(shoppingCart)
                     .build();
 
-            shoppingCart.addTotalPrice(cartItem); // add tổng giá bigdecimal
+            shoppingCart.addTotalPrice(cartItem);
             setCartItem.add(cartItem);
         }
         shoppingCart.setItems(setCartItem);

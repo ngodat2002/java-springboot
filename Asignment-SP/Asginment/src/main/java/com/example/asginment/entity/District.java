@@ -19,9 +19,7 @@ public class District {
     @Id
     private String id;
     private String name;
-//    @OneToMany(mappedBy = "district", cascade = CascadeType.ALL)
-//    @JsonManagedReference
-//    private Set<Street> streetSet;
+
     @CreationTimestamp
     private Date createdAt;
 }

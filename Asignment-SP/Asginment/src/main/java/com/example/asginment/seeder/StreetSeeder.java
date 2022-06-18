@@ -28,12 +28,14 @@ public class StreetSeeder {
         Faker faker = new Faker();
         streets = new ArrayList<>();
         for (int i = 0; i < NUMBER_STREET; i++) {
-            Street street = new Street();
-            street.setId(UUID.randomUUID().toString());
-            street.setDescription(faker.leagueOfLegends().rank());
-            street.setStatus(StreetSimpleStatus.USING);
+
+            streetRepository.save(Street.builder()
+                            .id(UUID.randomUUID().toString())
+                            .name(faker.name().fullName())
+                            .description(faker.address().city())
+                            .status(StreetSimpleStatus.UNDER_CONSTRUCTION)
+                    .build());
         }
-        streetRepository.saveAll(streets);
         log.debug("=============END OF SEEDING Street============");
     }
 }

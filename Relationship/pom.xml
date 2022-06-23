@@ -8,11 +8,11 @@
         <version>2.7.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>Relationship-home</artifactId>
+    <groupId>com.order</groupId>
+    <artifactId>Relationship</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Relationship-home</name>
-    <description>Relationship-home</description>
+    <name>Relationship</name>
+    <description>Relationship</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -58,6 +58,11 @@
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>1.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
